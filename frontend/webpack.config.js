@@ -15,6 +15,7 @@ module.exports = {
     rules: [
       {
         use: 'babel-loader',
+        exclude: /node_modules/,
         test: /\.js$/
       },
       {
@@ -22,7 +23,7 @@ module.exports = {
         use: [
           {
             loader: 'url-loader',
-            options: { limit: 10*1024 }
+            options: { limit: 1024 }
           },
           'image-webpack-loader'
         ]
@@ -33,8 +34,12 @@ module.exports = {
       }
     ]
   },
+  devServer: {
+    historyApiFallback: true,
+    contentBase: './build'
+  },
   plugins: [new HtmlWebpackPlugin({
     title: 'something',
-    template: path.resolve(__dirname, 'index.html'),
+    template: path.resolve(__dirname, 'src/index.html'),
   })]
 };
